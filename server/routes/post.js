@@ -27,4 +27,13 @@ post.save().then(result =>{
 })
 })
 
+router.get("/allpost",(req,res) =>{
+    Post.find().
+    then(posts=>{
+        res.json({posts})
+    }).catch(err =>{
+        console.log(err)
+    })
+})
+
 module.exports = router;
