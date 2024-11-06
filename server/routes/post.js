@@ -28,7 +28,7 @@ post.save().then(result =>{
 })
 
 router.get("/allpost",(req,res) =>{
-    Post.find().
+    Post.find().populate("postedBy","_id name").
     then(posts=>{
         res.json({posts})
     }).catch(err =>{
@@ -36,4 +36,18 @@ router.get("/allpost",(req,res) =>{
     })
 })
 
+router.get("/mypost",requireLogin,(req,res) =>{
+    console.log("I am In")
+    console.log(req.user._id)
+    Post.find({postedBy:req.user._id}).populate("postedBy","_id name").then(mypost=>{
+        console.log(mypost)
+        res.json(
+        {
+            mypost
+        }
+        )
+        }).catch(err =>{
+            console.log(err)
+    })
+})
 module.exports = router;
