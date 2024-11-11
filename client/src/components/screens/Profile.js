@@ -2,10 +2,11 @@ import React from "react";
 
 const Profile = () =>{
      return(
-       <div>
+       <div style={{maxWidth:"950px", margin:"0px auto"}}> 
          <div style={{display:"flex",
             justifyContent:"space-around",
-            margin:"18px 0px"
+            margin:"18px 0px",
+            borderBottom:"1px solid grey"
          }}>
             <div>
                <img  
@@ -21,6 +22,30 @@ const Profile = () =>{
                <h6>40 Followers</h6>
                <h6>40 Following</h6>
             </div>
+         </div>
+         <div className="gallery">
+         <img 
+         className="item" 
+               src=" https://images.unsplash.com/photo-1730970238526-c4b4f42425cf?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+              alt="gallery pics"
+              />
+                    <img 
+         className="item" 
+               src=" https://images.unsplash.com/photo-1730970238526-c4b4f42425cf?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+              alt="gallery pics"/>
+                       <img 
+         className="item" 
+               src=" https://images.unsplash.com/photo-1730970238526-c4b4f42425cf?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+              alt="gallery pics"/>        
+               <img 
+         className="item" 
+               src=" https://images.unsplash.com/photo-1730970238526-c4b4f42425cf?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+              alt="gallery pics"/>   
+                       <img 
+         className="item" 
+               src=" https://images.unsplash.com/photo-1730970238526-c4b4f42425cf?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+              alt="gallery pics"/>
+              
          </div>
        </div>
      ) 
