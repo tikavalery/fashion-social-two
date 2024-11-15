@@ -9,6 +9,7 @@ import Profile from './components/screens/Profile';
 // import SignUp from './components/screens/SignUp';
 // import SignUp from './components/screens/SignUp';
 import SignUp from "./components/screens/SignUp";
+import CreatePost from "./components/screens/CreatePost";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route exact path = "/signin" element = {<SignIn/>}/>
         <Route exact path = "/profile" element = {<Profile/>}/>
         <Route exact path = "/signup" element = {<SignUp/>}/>
+        <Route exact path = "/create" element = {<CreatePost/>}/>
        
       </Routes>
       </BrowserRouter>
