@@ -1,36 +1,28 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import M from "materialize-css";
+import axios from "axios";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const PostData = () => {
-//     console.log("I am in");
-    fetch("/signup", {
-      method: "post",
-      header: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: "",
-        password: "",
-        email: "",
-      })
+
+     axios.post('/signup', {
+    name,
+    password,
+    email
     })
-      .then((res) => res.json())
-      .then(
-          (data) => {
-               console.log(data)
-        if (data.error) {
-          M.toast({ html: data.error ,classes:"#c62828 red darken-3"});
-        } else{
-          M.toast({html:data.message, classes:"#43a047 green darken-1"})
-          
-        }
-      }
-     );
+    .then(function (response) {
+      M.toast({html:response.data.message, classes:"#43a047 green darken-1"})
+      navigate("/signin")
+    })
+    .catch(function (error) {
+      M.toast({html:error.message, classes:"#c62828 red darken-3"})
+      navigate("/signup")
+    });  
   };
   return (
     <div className="mycard">
