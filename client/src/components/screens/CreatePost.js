@@ -6,7 +6,7 @@ const CreatePost = () =>{
         style={{
             margin:"10px auto",
             maxWidth:"500px",
-            padding:"20px",
+            padding:"30px",
             textAlign:"center"
 
         }}>
@@ -14,8 +14,8 @@ const CreatePost = () =>{
             <input type="text" placeholder="body"/>
             <div className= "file-field input-field">
              <div className="file-field input-field">
-                <div className="btn">
-                    <span>File</span>
+                <div className="btn #64b5f6 blue darken-1">
+                    <span>Upload Image</span>
                     <input type="file" name="" id="" />
                 </div>
                 <div className="file-path-wrapper">
@@ -23,7 +23,9 @@ const CreatePost = () =>{
                 </div>
              </div>
             </div>
-
+            <button className="btn waves-effect waves-light #64b5f6 blue darken-1" > Submit Post
+                     
+                     </button>
 
         </div>
     )
