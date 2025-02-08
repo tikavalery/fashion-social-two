@@ -9,22 +9,24 @@ const Post = mongoose.model("Post")
 
 
 router.post("/createpost",requireLogin,(req,res) =>{
-    const {title, body} = req.body
-    if(!title || !body){
-        return res.status(422).json({error:"Please add all the fields"})
-    }
-    req.user.password = undefined;
-    console.log(req.user)
-const post = new Post({
-    title,
-    body,
-    postedBy:req.user
-})
-post.save().then(result =>{
-    res.json({post:result})
-}).catch(err=>{
-    console.log(err)
-})
+    const {title, body,pic} = req.body
+    console.log(title, body, pic)
+//     if(!title || !body || !pic){
+//         return res.status(422).json({error:"Please add all the fields"})
+//     }
+//     req.user.password = undefined;
+//     console.log(req.user)
+// const post = new Post({
+//     title,
+//     body,
+//     pic,
+//     postedBy:req.user
+// })
+// post.save().then(result =>{
+//     res.json({post:result})
+// }).catch(err=>{
+//     console.log(err)
+// })
 })
 
 router.get("/allpost",(req,res) =>{
