@@ -1,9 +1,12 @@
-import React,{useState} from "react";
+import React,{useState, useContext, useReducer} from "react";
 import { Link,useNavigate } from "react-router-dom";
+import {UserContext} from "../../App"
 import M from "materialize-css"
 import axios from "axios";
 
+
 const SignIn = () =>{
+   const{state,dispatch} = useContext(UserContext)
      const navigate = useNavigate();
 
      const [password, setPassword] = useState("");
@@ -21,6 +24,9 @@ const SignIn = () =>{
     })
     .then(function (response) {
       console.log(response.data)
+      localStorage.setItem("jwt", response.data.token)
+      localStorage.setItem("user", JSON.stringify(response.data.user))
+      dispatch({type:"USER", payload:response.data.user})
       M.toast({html:"SignedIn Successfully", classes:"#43a047 green darken-1"})
       navigate("/")
     })
