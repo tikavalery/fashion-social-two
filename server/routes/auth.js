@@ -14,7 +14,8 @@ const requireLogin = require("../middleware/requireLogin")
 
 
 router.post("/signup",(req,res)=>{
-    console.log(req.body)
+    console.log("I am inside signup")
+    // console.log(req.body)
     const{name, email, password} = req.body
     console.log(name, email, password)
     if(!email || !password|| !name){
