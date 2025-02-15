@@ -1,6 +1,9 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 
 const Home = () =>{
+
+   const [data, setData] = useState([])
+   
      return(
        <div className="home">
          <div className="card home-card"> 
