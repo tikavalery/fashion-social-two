@@ -29,6 +29,7 @@ post.save().then(result =>{
 router.get("/allpost",requireLogin,(req,res) =>{
     Post.find().populate("postedBy","_id name").
     then(posts=>{
+        console.log(posts)
         res.json({posts})
     }).catch(err =>{
         console.log(err)
