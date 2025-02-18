@@ -1,6 +1,19 @@
-import React from "react";
+import React,{useEffect,useState, useContext}from "react";
+import { UserContext } from "../../App";
 
 const Profile = () =>{
+      const [mypics, setPics] = useState([])
+      const {state, dispatch} = useContext(UserContext)
+   useEffect(() =>{
+      fetch("/mypost", {
+         headers:{
+            "Authorization": "Bearer " + localStorage.getItem("jwt")
+         }
+      }).then(res =>res.json()).then(result =>{
+         console.log(result)
+           setPics(result.mypost)
+      })
+   },[])
      return(
        <div style={{maxWidth:"950px", margin:"0px auto"}}> 
          <div style={{display:"flex",
@@ -15,7 +28,7 @@ const Profile = () =>{
 
             </div>
             <div>
-               <h4>Banadzem Valery</h4>
+               <h4>{state?.name}</h4>
             </div>
             <div>
                <h6> 40 posts</h6>
@@ -24,27 +37,15 @@ const Profile = () =>{
             </div>
          </div>
          <div className="gallery">
-         <img 
-         className="item" 
-               src=" https://images.unsplash.com/photo-1730970238526-c4b4f42425cf?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-              alt="gallery pics"
-              />
-                    <img 
-         className="item" 
-               src=" https://images.unsplash.com/photo-1730970238526-c4b4f42425cf?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-              alt="gallery pics"/>
-                       <img 
-         className="item" 
-               src=" https://images.unsplash.com/photo-1730970238526-c4b4f42425cf?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-              alt="gallery pics"/>        
-               <img 
-         className="item" 
-               src=" https://images.unsplash.com/photo-1730970238526-c4b4f42425cf?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-              alt="gallery pics"/>   
-                       <img 
-         className="item" 
-               src=" https://images.unsplash.com/photo-1730970238526-c4b4f42425cf?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-              alt="gallery pics"/>
+            {
+               mypics.map(item=>{
+                  return(
+                    <img alt="gallery pics" className="item"  src={item.photo} />
+                  )
+               })
+            }
+    
+       
               
          </div>
        </div>
