@@ -14,14 +14,13 @@ const requireLogin = require("../middleware/requireLogin")
 
 
 router.post("/signup",(req,res)=>{
-    console.log("I am inside signup")
-    // console.log(req.body)
+   
     const{name, email, password} = req.body
-    console.log(name, email, password)
+ 
     if(!email || !password|| !name){
    return res.status(422).json({error:"Please add all the fields"})   
     } 
-    console.log(name,email, password)
+   
    User.findOne({email:email}).then((savedUser)=>{
     if(savedUser){
         return res.status(422).json({error:"user already exist with that email"})
