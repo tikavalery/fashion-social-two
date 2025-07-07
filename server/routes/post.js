@@ -48,20 +48,32 @@ router.get("/mypost",requireLogin,(req,res) =>{
     })
 })
 
+// Define a route to handle 'liking' a post
+// This route requires authentication, so `requireLogin` middleware is used
 router.put("/like", requireLogin, async (req, res) => {
-    console.log(" I am inside likes")
+    // console.log("This is request body")
+    // console.log(req.body)
+    // Log to confirm this route is hit when like is triggered
+    // console.log("I am inside likes");
+
     try {
+        // Use Mongoose's findByIdAndUpdate to find the post by ID and update it
         const result = await Post.findByIdAndUpdate(
-            req.body.postId, 
+            req.body.postId, // The ID of the post to like (sent in the request body)
             {
+                // Add the current user's ID to the `likes` array using MongoDB's $push operator
                 $push: { likes: req.user._id }
-            }, 
+            },
             {
-                new: true
-            }).populate("likes"); // You can use populate if you want to get user data for the likes
-        
-        res.json(result); // Send the updated post as the response
+                new: true // Return the modified document rather than the original
+            }
+        ).populate("likes"); // Optionally populate the `likes` field with full user documents
+
+        // Send the updated post (with new like) as a JSON response
+        res.json(result);
+
     } catch (err) {
+        // If there's an error (e.g., invalid post ID), send a 422 Unprocessable Entity status with the error
         return res.status(422).json({ error: err });
     }
 });
