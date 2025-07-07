@@ -51,11 +51,7 @@ router.get("/mypost",requireLogin,(req,res) =>{
 // Define a route to handle 'liking' a post
 // This route requires authentication, so `requireLogin` middleware is used
 router.put("/like", requireLogin, async (req, res) => {
-    // console.log("This is request body")
-    // console.log(req.body)
-    // Log to confirm this route is hit when like is triggered
-    // console.log("I am inside likes");
-
+ 
     try {
         // Use Mongoose's findByIdAndUpdate to find the post by ID and update it
         const result = await Post.findByIdAndUpdate(
@@ -70,6 +66,7 @@ router.put("/like", requireLogin, async (req, res) => {
         ).populate("likes"); // Optionally populate the `likes` field with full user documents
 
         // Send the updated post (with new like) as a JSON response
+    
         res.json(result);
 
     } catch (err) {

@@ -22,7 +22,6 @@ const Home = () => {
       })
       .then(res => res.json())
       .then(result => {
-         console.log(result);
          // Store fetched posts in state
          setData(result.posts);
       });
@@ -43,9 +42,9 @@ const Home = () => {
       })
       .then(res => res.json())
       .then(result => {
-         console.log(result);
+        
          // Update post in local state with updated like info
-         console.log(data)
+       
          const newData = data.map(item => {
             
             if (item._id === result._id) {
@@ -76,7 +75,7 @@ const Home = () => {
       })
       .then(res => res.json())
       .then(result => {
-         console.log(result);
+    
          // Update post in local state with updated unlike info
          const newData = data.map(item => {
             if (item._id === result._id) {
