@@ -25,7 +25,8 @@ post.save().then(result =>{
 })
 
 router.get("/allpost",requireLogin,(req,res) =>{
-    Post.find().populate("postedBy","_id name").
+    Post.find().populate("postedBy","_id name")
+    .populate("comments.postedBy", "_id name").
     then(posts=>{
      
         res.json({posts})
@@ -74,6 +75,71 @@ router.put("/like", requireLogin, async (req, res) => {
         return res.status(422).json({ error: err });
     }
 });
+
+// router.put("/comment", requireLogin, (req,res)=>{
+//     const comment = {
+//         text:req.body.text,
+//         postedBy:req.user._id
+//     }
+//     Post.findByIdAndUpdate(req.body.postId,{
+//         $push:{comments:comment}
+//     },{
+//         new:true
+//     }).populate("comments.postedBy","id name").exec((err, result) =>{
+//         if(err){
+//             return res.status(422).json({error:err})
+//         }else{
+//             res.json(result)
+//         }
+//     })
+// })
+
+
+
+
+// router.put("/comment", requireLogin, async (req, res) => {
+//     const comment = {
+//         text: req.body.text,
+//         postedBy: req.user._id
+//     };
+
+//     try {
+//         const result = await Post.findByIdAndUpdate(
+//             req.body.postId,
+//             { $push: { comments: comment } },
+//             { new: true }
+//         ).populate("comments.postedBy", "_id name");
+
+//         res.json(result);
+//     } catch (err) {
+//         // Send error response if something goes wrong
+//         res.status(422).json({ error: err });
+//     }
+// });
+// ```
+
+router.put("/comment", requireLogin, async (req, res) => {
+    const comment = {
+        text: req.body.text,
+        postedBy: req.user._id
+    };
+
+    try {
+        const result = await Post.findByIdAndUpdate(
+            req.body.postId,
+            { $push: { comments: comment } },
+            { new: true }
+        ).populate("comments.postedBy", "_id name")
+        .populate("postedBy", "_id name");
+
+        return res.json(result);
+    } catch (err) {
+        return res.status(422).json({ error: err });
+    }
+});
+
+
+
 
 router.put("/unlike", requireLogin, async (req, res) => {
     try {
