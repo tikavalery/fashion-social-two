@@ -118,6 +118,22 @@ const Home = () => {
        })
    }
    // Render the list of posts
+
+   const deletePost = (postid) =>{
+      console.log(postid)
+      fetch(`/deletepost/${postid} `, {
+         method:"delete",
+         headers:{
+            Authorization:"Bearer " + localStorage.getItem("jwt")
+         }
+      }).then(res => res.json()).then(result =>{
+         console.log(result)
+         const newData = data.filter(item => {
+            return item._id !== result._id
+         })
+         setData(newData)
+      })
+   }
    return (
       <div className="home">
          {
@@ -125,20 +141,17 @@ const Home = () => {
          
                return (
                   <div className="card home-card" key={item._id}>
-                     {/* Display name of the user who posted */}
-                     <h5>{item?.postedBy?.name}</h5>
-
-                     {/* Post image */}
+                    
+                     <h5>{item?.postedBy?.name}{item?.postedBy?._id === state._id 
+                        &&<i className = "material-icons" 
+                        style={{float:"right"}} onClick={() =>deletePost(item._id)}>delete</i> }
+                        </h5>
                      <div className="card-image">
                         <img src={item?.photo} alt="home pic" />
                      </div>
-
-                     {/* Post interaction icons and content */}
                      <div className="card-content">
-                        {/* Static favorite icon (could be expanded later) */}
                         <i className="material-icons" style={{ color: "red" }}>favorite</i>
 
-                        {/* Like and Unlike buttons */}
                         {
                            item.likes.includes(state._id)
                            ?
@@ -183,111 +196,3 @@ const Home = () => {
 export default Home;
 
 
-
-// import React,{useState,useEffect, useContext} from "react";
-// import { UserContext } from "../../App";
-
-// const Home = () =>{
-
-//    const [data, setData] = useState([])
-//    const {state, dispatch} = useContext(UserContext)
-//    useEffect(() =>{
-//       fetch("/allpost", {
-//          headers:{
-//             "Authorization":"Bearer " + localStorage.getItem("jwt")
-//          }
-//       }).then(res =>res.json()).then(result =>{
-//          console.log(result)
-//          setData(result.posts)
-//       })
-//    },[])
-//    const likePost = (id) =>{
-//      console.log("I am inside likes") ;
-//        fetch("/like",{
-//          method:"put",
-//          headers:{
-//             "Content-Type":"application/json",
-//             "Authorization":"Bearer " + localStorage.getItem("jwt")
-//          },
-//          body:JSON.stringify({
-//             postId:id
-//          })
-//        }).then(res =>res.json()).then(result =>{
-//          console.log(result)
-//          const newData = data.map(item =>{
-//             if(item._id === result._id){
-//                return result
-//             }else{
-//                return item
-//             }
-//          })
-//          setData(newData)
-//        }).catch(err =>{
-//          console.log(err)
-//        })
-
-//    }
-
-//    const unlikePost = (id) =>{
-//       console.log(" I am inside unlikes")
-//       fetch("/unlike",{
-//         method:"put",
-//         headers:{
-//            "Content-Type":"application/json",
-//            "Authorization":"Bearer " + localStorage.getItem("jwt")
-//         },
-//         body:JSON.stringify({
-//            postId:id
-//         })
-//       }).then(res =>res.json()).then(result =>{
-//          console.log(result)
-//          const newData = data.map(item =>{
-//             if(item._id === result._id){
-//                return result
-//             }else{
-//                return item
-//             }
-//          })
-//          setData(newData)
-//       }).catch(err =>{
-//          console.log(err)
-//        })
-//   }
-//      return(
-//        <div className="home">
-//          {
-//             data.map(item=>{
-//                return(
-//                   <div className="card home-card" key={item._id}> 
-//                   <h5> {item?.postedBy?.name}</h5>
-//                   <div className="card-image">
-//                      <img src={item?.photo} alt="home pic"/>
-      
-//                   </div>
-//                   <div className="card-content">
-// <i className="material-icons" style={{color:"red"}}> favorite</i>
-// <i className="material-icons" onClick={() => {likePost(item._id)}}>thumb_up</i>
-// <i className="material-icons" onClick={() => {unlikePost(item._id)}}>thumb_down</i>
-//                      {/* {item.likes.includes(state._id)
-//                      ?
-//                      <i className="material-icons" onClick={() => unlikePost(item._id)}>thumb_down</i>
-//                      :
-//                      <i className="material-icons" onClick={() => likePost(item._id)}>thumb_up</i>
-//                   }
-//                       */}
-                     
-//                      <h6>{item.likes.length} Likes </h6>
-//                      <h6>{item?.title}</h6>
-//                      <p>{item?.body}</p>
-//                      <input type="text" placeholder="add a comment"/>
-//                   </div>
-//                </div>
-//                )
-//             })
-//          }
-      
-//        </div>
-//      ) 
-// }
-
-// export default Home;
