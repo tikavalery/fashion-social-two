@@ -127,7 +127,6 @@ const Home = () => {
             Authorization:"Bearer " + localStorage.getItem("jwt")
          }
       }).then(res => res.json()).then(result =>{
-         console.log(result)
          const newData = data.filter(item => {
             return item._id !== result._id
          })
