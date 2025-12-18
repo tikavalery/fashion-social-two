@@ -3,6 +3,7 @@
 // Import necessary hooks and context from React and your app
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../App";
+import {Link} from "react-router-dom"
 
 
 const Home = () => {
@@ -141,7 +142,7 @@ const Home = () => {
                return (
                   <div className="card home-card" key={item._id}>
                     
-                     <h5>{item?.postedBy?.name}{item?.postedBy?._id === state._id 
+                     <h5><Link to={`/profile/${item?.postedBy?._id}`}>{item?.postedBy?.name}</Link>{item?.postedBy?._id === state._id 
                         &&<i className = "material-icons" 
                         style={{float:"right"}} onClick={() =>deletePost(item._id)}>delete</i> }
                         </h5>

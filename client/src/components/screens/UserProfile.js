@@ -6,10 +6,11 @@ import axios from "axios";
 
 const Profile = () =>{
       
-      const [mypics, setPics] = useState([])
-      const {state, dispatch} = useContext(UserContext)
+      const [mypics, setPics] = useState(null);
+      const [userProfile, setUserProfile] = useState([]);
+      const {state, dispatch} = useContext(UserContext);
     const {userid} = useParams();
-    // console.log(userid)
+
    useEffect(() =>{
   
       fetch(`/user/${userid}`, {
@@ -18,11 +19,17 @@ const Profile = () =>{
          }
       }).then(res =>res.json()).then(result =>{
          console.log(result)
+         setUserProfile(result);
+         
            
       })
    },[])
      return(
-       <div style={{maxWidth:"950px", margin:"0px auto"}}> 
+        <>
+        {userProfile ? 
+        
+        
+         <div style={{maxWidth:"950px", margin:"0px auto"}}> 
          <div style={{display:"flex",
             justifyContent:"space-around",
             margin:"18px 0px",
@@ -36,27 +43,34 @@ const Profile = () =>{
             </div>
             <div>
                <h4>{state?.name}</h4>
-            </div>
+            </div> 
+            <h4>{userProfile.user?.name}</h4>
+            <h5> {userProfile.user?.email}</h5>
             <div>
-                <h1>I am userprofile</h1>
-               <h6> 40 posts</h6>
+               
+               <h6> {userProfile?.post?.length} posts</h6>
                <h6>40 Followers</h6>
                <h6>40 Following</h6>
             </div>
          </div>
          <div className="gallery">
             {
-               mypics.map(item=>{
-                  return(
-                    <img alt="gallery pics" className="item"  src={item.photo} />
-                  )
-               })
+                userProfile?.posts?.map(item => {
+                    return(
+                        <img key = {item?._id} className="item" src = {item?.photo} alt= {item?.title} />
+                    )
+                })
             }
     
        
               
          </div>
        </div>
+        
+        : <h2>loading . . . ?</h2>}
+       
+        </>
+       
      ) 
 }
 
